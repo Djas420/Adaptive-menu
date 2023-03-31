@@ -1,0 +1,171 @@
+/* ******************************************* START */
+
+.nav {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 10px 20px;
+
+	white-space: nowrap;
+	text-align: center;
+
+	background-color: burlywood;
+}
+
+.nav__list {
+	width: 100%;
+
+	font-size: 0;
+
+	list-style: none;
+	/* white-space: nowrap; */
+}
+
+.nav__item {
+	display: inline-block;
+}
+
+.nav__link {
+	display: block;
+	padding: 5px 10px;
+
+	color: #fff;
+	font-size: 23px;
+	white-space: nowrap;
+	text-decoration: none;
+
+	transition: text-decoration 0.3s linear;
+}
+
+.nav__link:hover {
+	text-decoration: underline;
+}
+
+/*  */
+.nav__item-btn {
+	position: relative;
+
+	display: inline-block;
+}
+
+.nav__item-icon {
+	color: #fff;
+	font-size: 30px;
+	line-height: 20px;
+
+	cursor: pointer;
+}
+
+.nav__item-sub {
+	position: absolute;
+	top: 61px;
+	left: 50%;
+
+	list-style: none;
+	background-color: blueviolet;
+	transform: translateX(-50%);
+	visibility: hidden;
+	opacity: 0;
+
+	transition: all 0.3s linear;
+}
+
+.nav__item-icon.active ~ .nav__item-sub {
+	visibility: visible;
+	opacity: 1;
+}
+
+.nav__item-sub .nav__item {
+	display: block;
+}
+
+/* ******************************************* HAMBURGER */
+.nav__item-hamburger {
+	position: relative;
+
+	width: 30px;
+	height: 25px;
+}
+
+.nav__item-hamburger span {
+	display: block;
+	width: 100%;
+	height: 5px;
+
+	background-color: #fff;
+	border-radius: 5px;
+	opacity: 1;
+
+	transition: all 0.3s linear;
+}
+
+.nav__item-hamburger span:nth-child(1) {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.nav__item-hamburger span:nth-child(2) {
+	position: absolute;
+	top: 50%;
+	left: 0;
+
+	transform: translateY(-50%);
+}
+
+.nav__item-hamburger span:nth-child(3) {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.nav__item-icon.active .nav__item-hamburger span:nth-child(1) {
+	top: 10px;
+
+	transform: rotate(45deg);
+}
+
+.nav__item-icon.active .nav__item-hamburger span:nth-child(2) {
+	opacity: 0;
+}
+
+.nav__item-icon.active .nav__item-hamburger span:nth-child(3) {
+	top: 10px;
+
+	transform: rotate(-45deg);
+}
+
+/* ******************************************* BREAKPOINT */
+
+@media (max-width: 600px) {
+	.header {
+		align-items: center;
+	}
+
+	.nav {
+		order: 3;
+		width: 70px;
+		height: 60px;
+		margin: 0 0 0 auto;
+	}
+
+	.nav__item-sub {
+		right: -20px;
+		left: initial;
+
+		transform: translateX(0);
+	}
+
+	.nav__item-sub .nav__link {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 900px) {
+	.nav__link {
+		font-size: 15px;
+	}
+}
+
+/* ******************************************* END */
