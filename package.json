@@ -1,10 +1,10 @@
 {
 	"name": "@djas420/adaptive-menu",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Adaptive menu",
 	"repository": {
 		"type": "git",
-		"url": "git+https://gitlab.com/Djas420/adaptive-menu.git"
+		"url": "git+https://gitlab.com/Djas420/Adaptive-menu.git"
 	},
 	"keywords": [
 		"adaptive",
@@ -13,7 +13,7 @@
 	"author": "Djas420",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://gitlab.com/Djas420/adaptive-menu/issues"
+		"url": "https://gitlab.com/Djas420/Adaptive-menu/issues"
 	},
 	"devDependencies": {
 		"eslint": "^8.28.0",

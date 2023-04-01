@@ -40,7 +40,7 @@ menu.init();
 ## Options
 
 ```js
-const menu = new PriorityNavDjCo(
+const menu = new AdaptiveMenuDjCo(
   nav = '.nav', // Class name
   navList = '.nav__list', // Class name
   navItem = '.nav__item', // Class name
