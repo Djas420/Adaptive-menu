@@ -1,5 +1,5 @@
 /*!
- * AdaptiveMenuDjCo v0.0.2 (https://gitlab.com/Djas420/Adaptive-menu)
+ * AdaptiveMenuDjCo v0.0.3 (https://gitlab.com/Djas420/Adaptive-menu)
  * Copyright 2023 The DjCo.ru Authors
  * Licensed under MIT (https://gitlab.com/Djas420/Adaptive-menu/-/blob/main/LICENSE)
  */
