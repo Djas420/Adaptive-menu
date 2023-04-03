@@ -4,11 +4,12 @@
  * Licensed under MIT (https://gitlab.com/Djas420/Adaptive-menu/-/blob/main/LICENSE)
  */
 
-class AdaptiveMenuDjCo {
+window.AdaptiveMenuDjCo = class {
   constructor(
-    nav = '.nav',
-    navList = '.nav__list',
-    navItem = '.nav__item',
+    nav = 'nav',
+    navList = 'nav__list',
+    navItem = 'nav__item',
+    ariaLabelSubmenu = 'More',
     iconDesktop = '…',
     iconMobile = '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
     breakpoint = 600,
@@ -16,6 +17,7 @@ class AdaptiveMenuDjCo {
     this.nav = nav;
     this.navList = navList;
     this.navItem = navItem;
+    this.ariaLabelSubmenu = ariaLabelSubmenu;
     this.iconDesktop = iconDesktop;
     this.iconMobile = iconMobile;
     this.breakpoint = breakpoint;
@@ -42,36 +44,56 @@ class AdaptiveMenuDjCo {
     return false;
   }
 
+  #htmlBtnMenu() {
+    let icon;
+    if (this.#getBreakpoint()) {
+      icon = this.iconMobile;
+    } else {
+      icon = this.iconDesktop;
+    }
+
+    return `
+      <li class="${this.navItem}-btn" role="none">
+        <button class="${this.navItem}-icon"
+          role="none"
+          aria-haspopup="true"
+          aria-expanded="false"
+          href="#"
+          tabindex="-1"
+          type="button"
+        >${icon}</button>
+        <ul class="${this.navList}-submenu" role="menu" aria-label="${this.ariaLabelSubmenu}"></ul>
+      </li>
+    `;
+  }
+
   #setBtnMenu() {
     if (!this.#btnMenu) {
-      let btn;
-      if (this.#getBreakpoint()) {
-        btn = `
-            <li class="nav__item-btn">
-              <div class="nav__item-icon">${this.iconMobile}</div>
-              <ul class="nav__item-sub"></ul>
-            </li>`;
-      } else {
-        btn = `
-            <li class="nav__item-btn">
-              <div class="nav__item-icon">${this.iconDesktop}</div>
-              <ul class="nav__item-sub"></ul>
-            </li>`;
-      }
-      document.querySelector(this.navList).insertAdjacentHTML('beforeend', btn);
+      const btn = this.#htmlBtnMenu();
+      document.querySelector(`.${this.navList}`).insertAdjacentHTML('beforeend', btn);
 
-      this.#btnNavItem = document.querySelector('.nav__item-btn');
-      this.#subNavItem = document.querySelector('.nav__item-sub');
+      this.#btnNavItem = document.querySelector(`.${this.navItem}-btn`);
+      this.#subNavItem = document.querySelector(`.${this.navList}-submenu`);
+
+      const navItemIcon = this.#btnNavItem.querySelector(`.${this.navItem}-icon`);
+      navItemIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
 
       this.#btnNavItem.addEventListener('click', () => {
-        this.#btnNavItem.querySelector('.nav__item-icon').classList.toggle('active');
+        navItemIcon.classList.toggle('active');
+        if (navItemIcon.getAttribute('aria-expanded') === 'false') {
+          navItemIcon.setAttribute('aria-expanded', 'true');
+        } else {
+          navItemIcon.setAttribute('aria-expanded', 'false');
+        }
       });
 
       this.#btnMenu = true;
     } else if (this.#getBreakpoint()) {
-      this.#btnNavItem.querySelector('.nav__item-icon').innerHTML = this.iconMobile;
+      this.#btnNavItem.querySelector(`.${this.navItem}-icon`).innerHTML = this.iconMobile;
     } else {
-      this.#btnNavItem.querySelector('.nav__item-icon').innerHTML = this.iconDesktop;
+      this.#btnNavItem.querySelector(`.${this.navItem}-icon`).innerHTML = this.iconDesktop;
     }
   }
 
@@ -88,7 +110,7 @@ class AdaptiveMenuDjCo {
     const navWidth = this.#navList.clientWidth;
 
     if (this.#btnMenu) {
-      const subNavItems = this.#subNavItem.querySelectorAll(this.navItem);
+      const subNavItems = this.#subNavItem.querySelectorAll(`.${this.navItem}`);
       if (subNavItems.length > 0) {
         subNavItems.forEach((item) => {
           this.#btnNavItem.before(item);
@@ -114,7 +136,7 @@ class AdaptiveMenuDjCo {
           this.#subNavItem.append(item);
         }
       });
-    } else if (this.#subNavItem !== undefined && this.#subNavItem.querySelectorAll(this.navItem).length <= 0) {
+    } else if (this.#subNavItem !== undefined && this.#subNavItem.querySelectorAll(`.${this.navItem}`).length <= 0) {
       this.#btnNavItem.remove();
       this.#btnMenu = false;
     }
@@ -123,9 +145,9 @@ class AdaptiveMenuDjCo {
   }
 
   init() {
-    this.#nav = document.querySelector(this.nav);
-    this.#navList = document.querySelector(this.navList);
-    this.#navItems = document.querySelectorAll(this.navItem);
+    this.#nav = document.querySelector(`.${this.nav}`);
+    this.#navList = document.querySelector(`.${this.navList}`);
+    this.#navItems = document.querySelectorAll(`.${this.navItem}`);
     if (this.#getBreakpoint()) {
       this.#setMobileMenu();
     } else {
@@ -143,4 +165,4 @@ class AdaptiveMenuDjCo {
       }, 10);
     });
   }
-}
+};

@@ -2,7 +2,7 @@
 
 ## Usage
 
-include plugin files
+Include plugin files
 
 ```html
 <!DOCTYPE html>
@@ -25,13 +25,25 @@ menu.init();
 ## html structure
 
 ```html
-<nav class="nav">
-  <ul  class="nav__list">
-    <li class="nav__item">
-      <a href="" class="nav__link">Item</a>
+<nav class="nav" aria-label="Site navigate">
+  <ul  class="nav__list" role="menubar" aria-label="Site navigate">
+    <li class="nav__item active" role="none">
+      <a href="/" class="nav__link" role="menuitem" tabindex="0" aria-current="page">Home</a>
     </li>
-    <li class="nav__item">
-      <a href="" class="nav__link">Item</a>
+    <li class="nav__item" role="none">
+      <a href="#" class="nav__link" role="menuitem" tabindex="-1">Item</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Schema.org -->
+<nav class="nav" aria-label="Site navigate" itemscope itemtype="http://schema.org/SiteNavigationElement">
+  <ul  class="nav__list" role="menubar" aria-label="Site navigate">
+    <li class="nav__item active" role="none">
+      <a href="/" class="nav__link" itemprop="url" role="menuitem" tabindex="0" aria-current="page">Home</a>
+    </li>
+    <li class="nav__item" role="none">
+      <a href="#" class="nav__link" itemprop="url" role="menuitem" tabindex="-1">Item</a>
     </li>
   </ul>
 </nav>
@@ -41,9 +53,11 @@ menu.init();
 
 ```js
 const menu = new AdaptiveMenuDjCo(
-  nav = '.nav', // Class name
-  navList = '.nav__list', // Class name
-  navItem = '.nav__item', // Class name
+  // Default Options
+  nav = 'nav', // Class name
+  navList = 'nav__list', // Class name
+  navItem = 'nav__item', // Class name
+  ariaLabelSubmenu = 'More', // Name submenu
   iconDesktop = '…',
   iconMobile = '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
   breakpoint = 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu)
