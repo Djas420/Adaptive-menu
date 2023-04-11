@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.5] - 2023-04-12
+
+### Fixed
+
+- Bug npm readme.md fixed
+
 ## [0.0.4] - 2023-04-12
 
 ### Fixed
