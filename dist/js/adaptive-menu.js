@@ -1,26 +1,26 @@
 /*!
- * AdaptiveMenuDjCo v0.0.3 (https://gitlab.com/Djas420/Adaptive-menu)
+ * AdaptiveMenuDjCo v0.0.4 (https://gitlab.com/Djas420/Adaptive-menu)
  * Copyright 2023 The DjCo.ru Authors
  * Licensed under MIT (https://gitlab.com/Djas420/Adaptive-menu/-/blob/main/LICENSE)
  */
 
 window.AdaptiveMenuDjCo = class {
-  constructor(
-    nav = 'nav',
-    navList = 'nav__list',
-    navItem = 'nav__item',
-    ariaLabelSubmenu = 'More',
-    iconDesktop = '…',
-    iconMobile = '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
-    breakpoint = 600,
-  ) {
-    this.nav = nav;
-    this.navList = navList;
-    this.navItem = navItem;
-    this.ariaLabelSubmenu = ariaLabelSubmenu;
-    this.iconDesktop = iconDesktop;
-    this.iconMobile = iconMobile;
-    this.breakpoint = breakpoint;
+  constructor({
+    nav,
+    navList,
+    navItem,
+    ariaLabelSubmenu,
+    iconDesktop,
+    iconMobile,
+    breakpoint,
+  }) {
+    this.nav = nav || 'nav';
+    this.navList = navList || 'nav__list';
+    this.navItem = navItem || 'nav__item';
+    this.ariaLabelSubmenu = ariaLabelSubmenu || 'More';
+    this.iconDesktop = iconDesktop || '…';
+    this.iconMobile = iconMobile || '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>';
+    this.breakpoint = breakpoint || 600;
   }
 
   #btnMenu = false;

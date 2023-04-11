@@ -11,7 +11,7 @@ Include plugin files
 </head>
 
 <body>
-    <script async src="adaptive-menu.js"></script>
+    <script src="adaptive-menu.js"></script>
 </body>
 ```
 
@@ -52,29 +52,32 @@ menu.init();
 ## Options
 
 ```js
-const menu = new AdaptiveMenuDjCo(
-  // Default Options
-  nav = 'nav', // Class name
-  navList = 'nav__list', // Class name
-  navItem = 'nav__item', // Class name
-  ariaLabelSubmenu = 'More', // Name submenu
-  iconDesktop = '…',
-  iconMobile = '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
-  breakpoint = 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu)
-);
+const menu = new AdaptiveMenuDjCo({
+    // Default Options
+    nav: 'nav', // Class name
+    navList: 'nav__list', // Class name
+    navItem: 'nav__item', // Class name
+    ariaLabelSubmenu: 'More', // Name submenu
+    iconDesktop: '…',
+    iconMobile: '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
+    breakpoint: 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu)
+  });
 menu.init();
 ```
 
-## Package managers
+## Download
 
 NPM
-npm install --save @djas420/adaptive-menu
+
+npm i @djas420/adaptive-menu
 
 GitLab
-git clone https://gitlab.com/Djas420/adaptive-menu.git
+
+git clone <https://gitlab.com/Djas420/Adaptive-menu.git>
 
 GitHub
-git clone https://github.com/Djas420/adaptive-menu.git
+
+git clone <https://github.com/Djas420/Adaptive-menu.git>
 
 ## For designers
 
