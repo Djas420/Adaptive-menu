@@ -53,15 +53,15 @@ menu.init();
 
 ```js
 const menu = new AdaptiveMenuDjCo({
-    // Default Options
-    nav: 'nav', // Class name
-    navList: 'nav__list', // Class name
-    navItem: 'nav__item', // Class name
-    ariaLabelSubmenu: 'More', // Name submenu
-    iconDesktop: '…',
-    iconMobile: '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
-    breakpoint: 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu)
-  });
+  // Default Options
+  nav: 'nav', // Class name
+  navList: 'nav__list', // Class name
+  navItem: 'nav__item', // Class name
+  ariaLabelSubmenu: 'More', // Name submenu
+  iconDesktop: '…',
+  iconMobile: '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
+  breakpoint: 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu)
+});
 menu.init();
 ```
 

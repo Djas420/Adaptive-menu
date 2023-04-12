@@ -1,10 +1,10 @@
 {
 	"name": "@djas420/adaptive-menu",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Adaptive menu",
 	"repository": {
 		"type": "git",
-		"url": "git+https://gitlab.com/Djas420/Adaptive-menu.git"
+		"url": "https://gitlab.com/Djas420/Adaptive-menu.git"
 	},
 	"keywords": [
 		"adaptive",
