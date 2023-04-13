@@ -1,6 +1,6 @@
 {
 	"name": "@djas420/adaptive-menu",
-	"version": "0.0.7",
+	"version": "0.0.10",
 	"description": "Adaptive menu",
 	"repository": {
 		"type": "git",
@@ -15,6 +15,13 @@
 	"bugs": {
 		"url": "https://gitlab.com/Djas420/Adaptive-menu/issues"
 	},
+  "readme": "README.md",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "dist/"
+  ],
 	"devDependencies": {
 		"eslint": "^8.28.0",
 		"eslint-config-airbnb": "^19.0.4",
