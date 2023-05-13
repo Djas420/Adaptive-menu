@@ -1,5 +1,5 @@
 /*!
- * AdaptiveMenuDjCo v0.0.10 (https://gitlab.com/Djas420/Adaptive-menu)
+ * AdaptiveMenuDjCo v0.0.11 (https://gitlab.com/Djas420/Adaptive-menu)
  * Copyright 2023 The DjCo.ru Authors
  * Licensed under MIT (https://gitlab.com/Djas420/Adaptive-menu/-/blob/main/LICENSE)
  */
@@ -13,14 +13,16 @@ window.AdaptiveMenuDjCo = class {
     iconDesktop,
     iconMobile,
     breakpoint,
+    destroy,
   }) {
     this.nav = nav || 'nav';
     this.navList = navList || 'nav__list';
     this.navItem = navItem || 'nav__item';
     this.ariaLabelSubmenu = ariaLabelSubmenu || 'More';
     this.iconDesktop = iconDesktop || '…';
-    this.iconMobile = iconMobile || '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>';
-    this.breakpoint = breakpoint || 600;
+    this.iconMobile = iconMobile || `<div class="${this.nav}__item-hamburger"><span></span><span></span><span></span></div>`;
+    this.breakpoint = (breakpoint === false) ? 0 : breakpoint || 600;
+    this.destroy = destroy || false;
   }
 
   #btnMenu = false;
@@ -37,13 +39,23 @@ window.AdaptiveMenuDjCo = class {
 
   #timeOut;
 
+  // Mobile/Desktop icon check
   #getBreakpoint() {
-    if (window.innerWidth <= this.breakpoint) {
+    if (window.innerWidth < this.breakpoint) {
       return true;
     }
     return false;
   }
 
+  // Check for destroy
+  #getDestroy() {
+    if (window.innerWidth < this.destroy) {
+      return true;
+    }
+    return false;
+  }
+
+  // Mobile/Desktop icon generation
   #htmlBtnMenu() {
     let icon;
     if (this.#getBreakpoint()) {
@@ -67,6 +79,7 @@ window.AdaptiveMenuDjCo = class {
     `;
   }
 
+  // Adding a Mobile/Desktop Button
   #setBtnMenu() {
     if (!this.#btnMenu) {
       const btn = this.#htmlBtnMenu();
@@ -97,6 +110,7 @@ window.AdaptiveMenuDjCo = class {
     }
   }
 
+  // Building a mobile menu
   #setMobileMenu() {
     this.#setBtnMenu();
 
@@ -105,6 +119,7 @@ window.AdaptiveMenuDjCo = class {
     });
   }
 
+  // Building a desktop menu
   #setDesktopMenu() {
     this.#nav.style.overflow = 'hidden';
     const navWidth = this.#navList.clientWidth;
@@ -119,7 +134,10 @@ window.AdaptiveMenuDjCo = class {
     }
     const navItemsWidth = [];
     this.#navItems.forEach((item) => {
-      navItemsWidth.push(item.clientWidth);
+      const style = window.getComputedStyle(item, null);
+      const width = item.offsetWidth;
+      const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+      navItemsWidth.push(width + margin);
     });
 
     const allNavItemsWidth = navItemsWidth.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -131,7 +149,11 @@ window.AdaptiveMenuDjCo = class {
 
       let navItemsSum = 0;
       this.#navItems.forEach((item) => {
-        navItemsSum += item.clientWidth;
+        const style = window.getComputedStyle(item, null);
+        const width = item.offsetWidth;
+        const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+
+        navItemsSum += (width + margin);
         if (nw < navItemsSum) {
           this.#subNavItem.append(item);
         }
@@ -144,25 +166,49 @@ window.AdaptiveMenuDjCo = class {
     this.#nav.style.overflow = '';
   }
 
+  // Menu initialization
   init() {
     this.#nav = document.querySelector(`.${this.nav}`);
     this.#navList = document.querySelector(`.${this.navList}`);
-    this.#navItems = document.querySelectorAll(`.${this.navItem}`);
-    if (this.#getBreakpoint()) {
-      this.#setMobileMenu();
-    } else {
-      this.#setDesktopMenu();
+    this.#navItems = this.#navList.querySelectorAll(`.${this.navItem}`);
+
+    if (!this.destroy) {
+      if (this.#getBreakpoint()) {
+        this.#setMobileMenu();
+      } else {
+        this.#setDesktopMenu();
+      }
     }
-    window.priorityNavDjCoTimeout = this;
-    window.addEventListener('resize', () => {
-      clearTimeout(this.#timeOut);
-      this.#timeOut = setTimeout(() => {
-        if (window.priorityNavDjCoTimeout.#getBreakpoint()) {
-          window.priorityNavDjCoTimeout.#setMobileMenu();
+
+    const priorityNavDjCoTimeout = new Date().getTime();
+    window[priorityNavDjCoTimeout] = this;
+
+    function resizeMenu() {
+      let timeOut;
+      clearTimeout(timeOut);
+      timeOut = setTimeout(() => {
+        const obj = window[priorityNavDjCoTimeout];
+        if (obj.#getDestroy()) {
+          if (obj.#btnMenu) {
+            const subNavItems = obj.#subNavItem.querySelectorAll(`.${obj.navItem}`);
+            if (subNavItems.length > 0) {
+              subNavItems.forEach((item) => {
+                obj.#btnNavItem.before(item);
+              });
+            }
+
+            obj.#btnNavItem.remove();
+            obj.#btnMenu = false;
+          }
+        } else if (obj.#getBreakpoint()) {
+          obj.#setMobileMenu();
         } else {
-          window.priorityNavDjCoTimeout.#setDesktopMenu();
+          obj.#setDesktopMenu();
         }
       }, 10);
-    });
+    }
+    resizeMenu();
+
+    window.addEventListener('resize', resizeMenu);
   }
 };

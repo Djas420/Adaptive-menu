@@ -18,7 +18,7 @@ Include plugin files
 ## Call plugin without any options
 
 ```js
-const menu = new AdaptiveMenuDjCo();
+const menu = new AdaptiveMenuDjCo({});
 menu.init();
 ```
 
@@ -60,7 +60,8 @@ const menu = new AdaptiveMenuDjCo({
   ariaLabelSubmenu: 'More', // Name submenu
   iconDesktop: '…',
   iconMobile: '<div class="nav__item-hamburger"><span></span><span></span><span></span></div>',
-  breakpoint: 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu)
+  breakpoint: 600, // The number of pixels when all menu items should be moved to the dropdown (mobile menu),
+  destroy: 500,
 });
 menu.init();
 ```
