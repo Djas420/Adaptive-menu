@@ -1,5 +1,5 @@
 /*!
- * AdaptiveMenuDjCo v0.0.11 (https://gitlab.com/Djas420/Adaptive-menu)
+ * AdaptiveMenuDjCo v0.0.12 (https://gitlab.com/Djas420/Adaptive-menu)
  * Copyright 2023 The DjCo.ru Authors
  * Licensed under MIT (https://gitlab.com/Djas420/Adaptive-menu/-/blob/main/LICENSE)
  */
@@ -180,33 +180,28 @@ window.AdaptiveMenuDjCo = class {
       }
     }
 
-    const priorityNavDjCoTimeout = new Date().getTime();
-    window[priorityNavDjCoTimeout] = this;
-
-    function resizeMenu() {
-      let timeOut;
-      clearTimeout(timeOut);
-      timeOut = setTimeout(() => {
-        const obj = window[priorityNavDjCoTimeout];
-        if (obj.#getDestroy()) {
-          if (obj.#btnMenu) {
-            const subNavItems = obj.#subNavItem.querySelectorAll(`.${obj.navItem}`);
+    const resizeMenu = () => {
+      clearTimeout(this.#timeOut);
+      this.#timeOut = setTimeout(() => {
+        if (this.#getDestroy()) {
+          if (this.#btnMenu) {
+            const subNavItems = this.#subNavItem.querySelectorAll(`.${this.navItem}`);
             if (subNavItems.length > 0) {
               subNavItems.forEach((item) => {
-                obj.#btnNavItem.before(item);
+                this.#btnNavItem.before(item);
               });
             }
 
-            obj.#btnNavItem.remove();
-            obj.#btnMenu = false;
+            this.#btnNavItem.remove();
+            this.#btnMenu = false;
           }
-        } else if (obj.#getBreakpoint()) {
-          obj.#setMobileMenu();
+        } else if (this.#getBreakpoint()) {
+          this.#setMobileMenu();
         } else {
-          obj.#setDesktopMenu();
+          this.#setDesktopMenu();
         }
       }, 10);
-    }
+    };
     resizeMenu();
 
     window.addEventListener('resize', resizeMenu);

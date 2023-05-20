@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.12] - 2023-05-21
+
+### Fixed
+
+- Fixed bug when defining more than one menu
+
 ## [0.0.11] - 2023-05-13
 
 ### Added
